@@ -1,0 +1,44 @@
+<html>
+<body>
+    <script src="IDBFS_utils.js"></script>  
+
+    <script type='text/javascript'>
+       var LoadData = Module.cwrap('LoadData', 'string', null);
+       var SaveData = Module.cwrap('SaveData', null, ['string']);
+
+       function InboxHandler() {
+          SaveData(document.getElementById('inbox').value);
+       }
+
+       function OutboxHandler() {
+          document.getElementById('outbox').value = LoadData();
+       }
+
+       Module.OnDataMounted = OutboxHandler;
+    </script>
+
+    <table>
+       <tr>
+          <td>
+             input<br>
+             <input id="inbox" type="text" /><br>
+          </td>
+          <td>
+             output<br>
+             <input id="outbox" type="text" readonly /><br>
+          </td>
+       </tr>
+       <tr>
+          <td align="right">
+             <button onclick="InboxHandler()" >save to IDBFS</button><br>
+          </td>
+          <td  align="right">
+             <button onclick="OutboxHandler()" >read from IDBFS</button><br>
+          </td>
+       </tr>
+    </table>
+    
+
+</body>
+
+</html>
